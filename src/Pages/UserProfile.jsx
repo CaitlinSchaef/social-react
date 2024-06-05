@@ -5,7 +5,7 @@ function UserProfile() {
 
     return (
       <>
-        <Body />
+       
       </>
     )
   }

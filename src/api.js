@@ -2,13 +2,13 @@
 import axios from 'axios'
 
 
-// const baseUrl = 'https://social-django.fly.dev/'
-const baseUrl = 'http://127.0.0.1:8000'
+const baseUrl = 'https://social-django.fly.dev/'
+// const baseUrl = 'http://127.0.0.1:8000'
 
 
 // Get access token:
 export const getToken = ({ auth, username, password }) => {
-    return axios.post(`${baseUrl}/token/`, {
+    return axios.post(`${baseUrl}token/`, {
         username: username,
         password: password
     }).then(response => {
@@ -24,7 +24,7 @@ export const getToken = ({ auth, username, password }) => {
 export const fetchUser = ({ auth }) => {
     axios({
       method: 'get',
-      url: `${baseUrl}/profile/`, 
+      url: `${baseUrl}profile/`, 
       headers: {
         Authorization: `Bearer ${auth.accessToken}`
       }
@@ -32,7 +32,7 @@ export const fetchUser = ({ auth }) => {
       console.log('PROFILE: ', response)
     })
     .catch(error => {
-      console.log('ERROR: ', error)
+      console.log('GET USER ERROR: ', error)
       auth.setAccessToken(undefined)
     })
   }
@@ -41,7 +41,7 @@ export const fetchUser = ({ auth }) => {
 export const createUser = ({ username, password, firstName, lastName }) => {
     axios({
       method: 'post',
-      url: `${baseUrl}/create-user/`, 
+      url: `${baseUrl}create_user/`, 
       data: {
         username,
         password: password,
@@ -52,7 +52,7 @@ export const createUser = ({ username, password, firstName, lastName }) => {
       console.log('CREATE USER: ', response)
     })
     .catch(error => {
-      console.log('ERROR: ', error)
+      console.log('CREATE USER ERROR: ', error)
     })
   }
 
