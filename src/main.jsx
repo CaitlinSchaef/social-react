@@ -83,14 +83,18 @@ const AuthContextProvider = ({ children }) => {
   let tempToken = localStorage.getItem('token')
   
   const [accessToken, setAccessToken] = useState(tempToken ? tempToken : [])
+  const [user, setUser] = useState('')
 
   useEffect(() => {
     localStorage.setItem("token", JSON.stringify(accessToken))
+    localStorage.setItem("username", JSON.stringify(user))
   }, [accessToken])
 
   const auth = {
     accessToken,
-    setAccessToken
+    setAccessToken,
+    user,
+    setUser
   }
 
   return (

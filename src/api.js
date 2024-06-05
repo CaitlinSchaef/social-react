@@ -14,6 +14,7 @@ export const getToken = ({ auth, username, password }) => {
     }).then(response => {
         console.log('TOKEN RESPONSE: ', response)
         auth.setAccessToken(response.data.access)
+        auth.setUser(username)
     }).catch(error => {
         console.log('TOKEN GRAB ERROR: ', error)
         auth.setAccessToken(undefined)
@@ -68,18 +69,18 @@ export const createUser = ({ username, password, firstName, lastName }) => {
 //   }
 
 //Create New Posts
-//content type is important here
-// export const createImage = ({ title, image, auth }) => {
-//     return axios({
-//       method: 'post',
-//       url: `${baseUrl}/create-image/`,
-//       headers: {
-//         Authorization: `Bearer ${auth.accessToken}`,
-//         'Content-Type': 'multipart/form-data'
-//       },
-    //   data: {
-    //     image,
-    //     title,
-//       }
-//     })
-//   }
+// content type is important here
+export const createPost = ({ title, image, auth }) => {
+    return axios({
+      method: 'post',
+      url: `${baseUrl}create-post/`,
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+        'Content-Type': 'multipart/form-data'
+      },
+      data: {
+        image,
+        title,
+      }
+    })
+  }
