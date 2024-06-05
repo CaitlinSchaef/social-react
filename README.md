@@ -14,17 +14,18 @@ Currently, two official plugins are available:
 
 @vitejs/plugin-react uses Babel for Fast Refresh
 @vitejs/plugin-react-swc uses SWC for Fast Refresh
-production deploy to Vercel [https://vercel.com/]
 
-## Vercel setup
-create Vercel account
-import git repo
-configure project
-override output directory to 'dist'
-Routing via React-Router (lets you do browser router: https://reactrouter.com/en/main/start/tutorial)
-npm create vite@latest name-of-your-project -- --template react (only if vite isn't installed)
+## production deploy to Vercel [https://vercel.com/]
+# Vercel setup
+- create Vercel account
+- import git repo
+- configure project
+- override output directory to 'dist'
 
+## Routing via React-Router (lets you do browser router: https://reactrouter.com/en/main/start/tutorial)
+npm create vite@latest name-of-your-project -- --template react (only if vite isn't installed!!!!!!!!!)
 
+## follow these prompts
 npm install react-router-dom In Main.jsx at top: import { createBrowserRouter, RouterProvider, } from "react-router-dom"; Above bottom: const router = createBrowserRouter([ { path: "/", element:
 Hello world!
 , }, ]); 
