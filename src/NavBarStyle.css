@@ -1,0 +1,36 @@
+.navbar {
+    background-color: #A7C1D9; 
+    color: #f6f4e6;
+    text-decoration: none;
+    font-family: poppins, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: large;
+}
+.navbar-brand {
+    color: #F2A477;
+    margin-left: 5px
+    
+  }
+  
+  .nav-link {
+    color: #f6f4e6 !important;
+    padding: 1px;
+  }
+
+/* 
+Colors from book palette:
+#BFCDD9 - pale blue grey
+#A7C1D9 - light blue
+#023859 - deep blue
+#011826 - very dark blue
+#023859 - navy
+#F2F2F0 - white tan grey ?
+#F2C3A7 - light light peach
+#F2A477 - apricot
+#556773 - a darker stone grey 
+#F2C49B - light orange tan
+#F29863 - orange
+
+at one point margin-left on the navbar brand was 7px
+*/

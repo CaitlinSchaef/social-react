@@ -22,6 +22,7 @@ import MyNavBar from './NavBar.jsx';
 import CreateUser from './Pages/CreateUser.jsx';
 // import { initialState, taskReducer } from './Pages/ToDoFunction.jsx';
 
+// Importing Context
 import { AuthContext } from './authContext.js'
 
 
@@ -78,7 +79,14 @@ const router = createBrowserRouter([
 
 // basically we're creating values that we're going to track and update, and then we need to wrap that whole thing around the app
 const AuthContextProvider = ({ children }) => {
-  const [accessToken, setAccessToken] = useState()
+  //we're going to set up local storage to store their token
+  let tempToken = JSON.parse(localStorage.getItem('token'))
+  
+  const [accessToken, setAccessToken] = useState(tempToken ? tempToken : [])
+
+  useEffect(() => {
+    localStorage.setItem("token", JSON.stringify(accessToken))
+  }, [accessToken])
 
   const auth = {
     accessToken,
@@ -86,7 +94,7 @@ const AuthContextProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ auth }} >
+    <AuthContext.Provider value ={{ auth }}>
       {children}
     </AuthContext.Provider>
   )

@@ -1,42 +1,62 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+}
+#page-content {
+  flex-grow: 2;
+  max-height: 100%;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+html {
+  height: 100vh;
+  /* overflow: scroll; */
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+body {
+  background-image: url("../src/assets/sunsetplane.jpg"); 
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: #BFCDD9;
+  background-size: cover;
+    /* attachment is what let you wrap it to the screen properly */
+  background-attachment: fixed;
+  overflow: hidden;
+  color: #f6f4e6;
+ }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
+ .MainBody {
+  background-color: #F2C3A7;
+  border-radius: 2%;
+  color: white;
+  /* border-style: solid;
+  border-color: white;
+  border-width: 3px; */
+  flex-wrap: wrap;
+  padding-top: 5px;
+  margin-top: 30px;
+ }
 
-.card {
-  padding: 2em;
-}
+ button {
+  background-color: #023859;
+  color: #F2A477;
+  border-radius: 4%;
+ }
 
-.read-the-docs {
-  color: #888;
-}
+
+/* 
+Colors from book palette:
+#BFCDD9 - pale blue grey
+#A7C1D9 - light blue
+#023859 - deep blue
+#011826 - very dark blue
+#023859 - navy
+#F2F2F0 - white tan grey ?
+#F2C3A7 - light light peach
+#F2A477 - apricot
+#556773 - a darker stone grey 
+#F2C49B - light orange tan
+#F29863 - orange
+
+*/
