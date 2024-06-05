@@ -6,20 +6,24 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { createPost } from "../api"
 import Form from 'react-bootstrap/Form';
-
-
+import { AuthContext } from "../authContext"
+import { useContext } from 'react'
 
 
 const Body = () => {
-    const [username, setUsername] = useState('')
+    const { auth } = useContext(AuthContext)
     const [post_category, setPostCategory] = useState('')
     const [post_sub_category, setPostSubCategory] = useState('')
     const [post_body, setPostBody] = useState('')
     const [image, setImage] = useState('')
 
-    
+    // could identify some of these in views.py in the backend (like user etc)
     const submit = () => {
-      createPost({ username, post_category, post_sub_category, post_body, image })
+      createPost({ auth, post_category, post_sub_category, post_body, image })
+      .then(response => {
+        console.log('UPLOAD POST: RESPONSE: ', response)
+      })
+      .catch(error => console.log('POST UPLOAD ERROR: ', error))
     }
 
   return (
@@ -35,7 +39,10 @@ const Body = () => {
               <div>
                 <h3>New Post:</h3>
                   <Form>
-                    <Form.Select aria-label="Default select example">
+                    <Form.Select aria-label="Default select example"
+                      onChange={(e) => setPostCategory(e.target.value)}
+                      value={ post_category }
+                    >
                       <option>Select A Category:</option>
                       <option value="1">Africa</option>
                       <option value="2">Asia</option>
@@ -46,7 +53,10 @@ const Body = () => {
                       <option value="7">Europe</option>
                     </Form.Select>
                     <br />
-                    <Form.Select aria-label="Default select example">
+                    <Form.Select aria-label="Default select example"
+                      onChange={(e) => setPostSubCategory(e.target.value)}
+                      value={ post_sub_category }
+                    >
                       <option>Select A SubCategory:</option>
                       <option value="1">Cities</option>
                       <option value="2">Lodging</option>
@@ -57,13 +67,22 @@ const Body = () => {
                     <br />
                     <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                       <Form.Label>Write Your Post:</Form.Label>
-                      <Form.Control as="textarea" rows={4} />
+                      <Form.Control as="textarea" rows={4} 
+                        onChange={(e) => setPostBody(e.target.value)}
+                        value={ post_body }
+                      />
                     </Form.Group>
                     <Form.Group controlId="formFile" className="mb-3">
                       <Form.Label>Attach Image?</Form.Label>
-                      <Form.Control type="file" />
+                      <Form.Control 
+                        type="file" 
+                        accept='image/*'
+                        onChange={(e) => setImage(e.target.files[0])}
+                        value={ image }
+                      />
                     </Form.Group>
                   </Form>
+                  <button onClick={() => submit()}>Submit Post!</button>
                 </div>
             </div>
           </Col>

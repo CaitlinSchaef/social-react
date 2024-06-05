@@ -2,8 +2,8 @@
 import axios from 'axios'
 
 
-const baseUrl = 'https://social-django.fly.dev/'
-// const baseUrl = 'http://127.0.0.1:8000'
+// const baseUrl = 'https://social-django.fly.dev/'
+const baseUrl = 'http://127.0.0.1:8000/'
 
 
 // Get access token:
@@ -70,8 +70,9 @@ export const createUser = ({ username, password, firstName, lastName }) => {
 
 //Create New Posts
 // content type is important here
-export const createPost = ({ title, image, auth }) => {
-    return axios({
+export const createPost = ({ auth, post_category, post_sub_category, post_body, image }) => {
+  console.log('THIS IS THE SUBMISSION: ', post_category)  
+  return axios({
       method: 'post',
       url: `${baseUrl}create-post/`,
       headers: {
@@ -79,8 +80,7 @@ export const createPost = ({ title, image, auth }) => {
         'Content-Type': 'multipart/form-data'
       },
       data: {
-        image,
-        title,
+        post_category, post_sub_category, post_body, image
       }
     })
   }

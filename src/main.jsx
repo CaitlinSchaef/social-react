@@ -81,13 +81,14 @@ const router = createBrowserRouter([
 const AuthContextProvider = ({ children }) => {
   //we're going to set up local storage to store their token
   let tempToken = localStorage.getItem('token')
+  let tempUser = localStorage.getItem('user')
   
-  const [accessToken, setAccessToken] = useState(tempToken ? tempToken : [])
-  const [user, setUser] = useState('')
+  const [accessToken, setAccessToken] = useState(tempToken ? tempToken : '')
+  const [user, setUser] = useState(tempUser ? tempUser : '')
 
   useEffect(() => {
     localStorage.setItem("token", JSON.stringify(accessToken))
-    localStorage.setItem("username", JSON.stringify(user))
+    localStorage.setItem("user", JSON.stringify(user))
   }, [accessToken])
 
   const auth = {
