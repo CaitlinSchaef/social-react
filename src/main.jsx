@@ -7,7 +7,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { createContext } from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useReducer } from 'react'
 
 //project styles
@@ -80,7 +80,7 @@ const router = createBrowserRouter([
 // basically we're creating values that we're going to track and update, and then we need to wrap that whole thing around the app
 const AuthContextProvider = ({ children }) => {
   //we're going to set up local storage to store their token
-  let tempToken = JSON.parse(localStorage.getItem('token'))
+  let tempToken = localStorage.getItem('token')
   
   const [accessToken, setAccessToken] = useState(tempToken ? tempToken : [])
 

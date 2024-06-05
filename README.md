@@ -26,7 +26,8 @@ Currently, two official plugins are available:
 npm create vite@latest name-of-your-project -- --template react (only if vite isn't installed!!!!!!!!!)
 
 ## follow these prompts
-npm install react-router-dom In Main.jsx at top: import { createBrowserRouter, RouterProvider, } from "react-router-dom"; Above bottom: const router = createBrowserRouter([ { path: "/", element:
+npm install react-router-dom 
+In Main.jsx at top: import { createBrowserRouter, RouterProvider, } from "react-router-dom"; Above bottom: const router = createBrowserRouter([ { path: "/", element:
 Hello world!
 , }, ]); 
 In createRoot:

@@ -20,3 +20,66 @@ export const getToken = ({ auth, username, password }) => {
     })
 }
 
+// Fetch User
+export const fetchUser = ({ auth }) => {
+    axios({
+      method: 'get',
+      url: `${baseUrl}/profile/`, 
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`
+      }
+    }).then(response => {
+      console.log('PROFILE: ', response)
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+      auth.setAccessToken(undefined)
+    })
+  }
+
+//Create New User
+export const createUser = ({ username, password, firstName, lastName }) => {
+    axios({
+      method: 'post',
+      url: `${baseUrl}/create-user/`, 
+      data: {
+        username,
+        password: password,
+        first_name: firstName,
+        last_name: lastName
+      }
+    }).then(response => {
+      console.log('CREATE USER: ', response)
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+    })
+  }
+
+//Get Posts
+// export const getImages = ({ auth }) => {
+//     return axios({
+//       method: 'get',
+//       url: `${baseUrl}/get-images`,
+//       headers: {
+//         Authorization: `Bearer ${auth.accessToken}`
+//       }
+//     })
+//   }
+
+//Create New Posts
+//content type is important here
+// export const createImage = ({ title, image, auth }) => {
+//     return axios({
+//       method: 'post',
+//       url: `${baseUrl}/create-image/`,
+//       headers: {
+//         Authorization: `Bearer ${auth.accessToken}`,
+//         'Content-Type': 'multipart/form-data'
+//       },
+    //   data: {
+    //     image,
+    //     title,
+//       }
+//     })
+//   }

@@ -15,7 +15,7 @@ html {
 }
 
 body {
-  background-image: url("../src/assets/sunsetplane.jpg"); 
+  background-image: url("../src/assets/hotAirBalloon.jpg"); 
   background-repeat: no-repeat;
   background-position: center center;
   background-color: #BFCDD9;
@@ -47,6 +47,24 @@ body {
 
 /* 
 Colors from book palette:
+#DDA49D - taupey pink
+#93C4C9 - light light blue
+#F37A65 - coral ish
+#D9043D - candy red
+#037F8C - dark Teal
+#03A6A6 - bright teal
+#078C03 - bright green
+#F25E3D - carrot red
+#D90452 - hot pink
+#C1D6D9 - light light blue (like a blue grey white almost)
+#D98B48 - muted orange
+#73022C - like a jammy red
+#A3BFBF - almost robins egg blue
+#014029 - dark green
+*/
+
+/* 
+Colors from sunsetplane palette:
 #BFCDD9 - pale blue grey
 #A7C1D9 - light blue
 #023859 - deep blue
