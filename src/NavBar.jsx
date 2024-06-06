@@ -18,6 +18,8 @@ function MyNavBar() {
   const logOut = () => {
     localStorage.clear("token")
     auth.setAccessToken('')
+    localStorage.clear("user")
+    auth.setUser('')
     console.log('LOGGED OUT: SUCCESS')
   }
 
@@ -25,17 +27,18 @@ function MyNavBar() {
       <>
     <Navbar className="">
       <Container>
-        <Navbar.Collapse className="justify-content-start">
+        <Navbar.Collapse className="">
         <Navbar.Brand>
           <Link className="nav-link" to='/'>
-          CarryOn</Link>
+            CarryOn
+          </Link>
         </Navbar.Brand>
 
         <Navbar.Text className="nav-link me-2">
         <Link className="nav-link" to='/userprofile'>Profile</Link> 
         </Navbar.Text>
 
-        <Navbar.Text className="nav-out me-2">
+        <Navbar.Text className="nav-out me-2 justify-content-end">
           <button onClick={() => logOut()}>Log Out</button>
         </Navbar.Text>
 

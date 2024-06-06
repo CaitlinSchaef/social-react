@@ -57,21 +57,21 @@ export const createUser = ({ username, password, firstName, lastName }) => {
     })
   }
 
-//Get Posts
-// export const getImages = ({ auth }) => {
-//     return axios({
-//       method: 'get',
-//       url: `${baseUrl}/get-images`,
-//       headers: {
-//         Authorization: `Bearer ${auth.accessToken}`
-//       }
-//     })
-//   }
+// Get All Posts
+export const getPosts = ({ auth }) => {
+    return axios({
+      method: 'get',
+      url: `${baseUrl}/get-posts`,
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`
+      }
+    })
+  }
 
 //Create New Posts
 // content type is important here
-export const createPost = ({ auth, post_category, post_sub_category, post_body, image }) => {
-  console.log('THIS IS THE SUBMISSION: ', post_category)  
+export const createPost = ({ auth, postCategory, postSubCategory, postBody, image, imageCaption }) => {
+  console.log('THIS IS THE SUBMISSION: ', postCategory)  
   return axios({
       method: 'post',
       url: `${baseUrl}create-post/`,
@@ -80,7 +80,12 @@ export const createPost = ({ auth, post_category, post_sub_category, post_body, 
         'Content-Type': 'multipart/form-data'
       },
       data: {
-        post_category, post_sub_category, post_body, image
+        post_category: postCategory,
+         post_sub_category: postSubCategory, 
+         post_body: postBody, 
+         image, 
+         image_caption: imageCaption
       }
     })
   }
+

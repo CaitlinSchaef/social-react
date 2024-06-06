@@ -4,22 +4,42 @@ import ThemeProvider from 'react-bootstrap/ThemeProvider'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import { createPost } from "../api"
+import { createPost, getPosts } from "../api"
 import Form from 'react-bootstrap/Form';
 import { AuthContext } from "../authContext"
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
+
+const UserPostDisplay = () => {
+  const { auth } = useContext(AuthContext)
+  const [posts, setPosts] = useState('')
+
+  //come back and filter by user then set posts with that data 
+  useEffect(() => {
+    getPosts({ auth }).then(response => {
+      console.log('RESPONSE: ', response)
+      setPosts(response.data)
+    })
+  }, [])
 
 
-const Body = () => {
+  return (
+    <div>
+      <h3>This is all of your posts okay</h3>
+    </div>
+  )
+}
+
+const NewPostDisplay = () => {
     const { auth } = useContext(AuthContext)
-    const [post_category, setPostCategory] = useState('')
-    const [post_sub_category, setPostSubCategory] = useState('')
-    const [post_body, setPostBody] = useState('')
-    const [image, setImage] = useState('')
+    const [postCategory, setPostCategory] = useState('')
+    const [postSubCategory, setPostSubCategory] = useState('')
+    const [postBody, setPostBody] = useState('')
+    const [image, setImage] = useState(undefined)
+    const [imageCaption, setImageCaption] = useState('')
 
     // could identify some of these in views.py in the backend (like user etc)
     const submit = () => {
-      createPost({ auth, post_category, post_sub_category, post_body, image })
+      createPost({ auth, postCategory, postSubCategory, postBody, image, imageCaption })
       .then(response => {
         console.log('UPLOAD POST: RESPONSE: ', response)
       })
@@ -27,78 +47,111 @@ const Body = () => {
     }
 
   return (
-    <ThemeProvider
-    breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs']}
-    minBreakpoint="xs"
-    >
-      <Container>
-        <Row className="justify-content-center m-3">
-          <Col xs={12} md={7} className="d-flex flex-column justify-content-between text-center MainBody">
-            <div className="overflow-scroll" style={{height: "75vh"}}>
-              <h1>User Portal:</h1>
-              <div>
-                <h3>New Post:</h3>
-                  <Form>
-                    <Form.Select aria-label="Default select example"
-                      onChange={(e) => setPostCategory(e.target.value)}
-                      value={ post_category }
-                    >
-                      <option>Select A Category:</option>
-                      <option value="1">Africa</option>
-                      <option value="2">Asia</option>
-                      <option value="3">Australia</option>
-                      <option value="4">North America</option>
-                      <option value="5">Central America</option>
-                      <option value="6">South America</option>
-                      <option value="7">Europe</option>
-                    </Form.Select>
-                    <br />
-                    <Form.Select aria-label="Default select example"
-                      onChange={(e) => setPostSubCategory(e.target.value)}
-                      value={ post_sub_category }
-                    >
-                      <option>Select A SubCategory:</option>
-                      <option value="1">Cities</option>
-                      <option value="2">Lodging</option>
-                      <option value="3">Language/Communication</option>
-                      <option value="4">Food</option>
-                      <option value="5">Transportation</option>
-                    </Form.Select>
-                    <br />
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                      <Form.Label>Write Your Post:</Form.Label>
-                      <Form.Control as="textarea" rows={4} 
-                        onChange={(e) => setPostBody(e.target.value)}
-                        value={ post_body }
-                      />
-                    </Form.Group>
-                    <Form.Group controlId="formFile" className="mb-3">
-                      <Form.Label>Attach Image?</Form.Label>
-                      <Form.Control 
-                        type="file" 
-                        accept='image/*'
-                        onChange={(e) => setImage(e.target.files[0])}
-                        value={ image }
-                      />
-                    </Form.Group>
-                  </Form>
-                  <button onClick={() => submit()}>Submit Post!</button>
-                </div>
+  
+        <div>
+          <h3>New Post:</h3>
+            <Form>
+              <Form.Select aria-label="Default select example"
+                onChange={(e) => setPostCategory(e.target.value)}
+                value={ postCategory }
+              >
+                <option>Select A Category:</option>
+                <option value="Africa">Africa</option>
+                <option value="Asia">Asia</option>
+                <option value="Australia">Australia</option>
+                <option value="North America">North America</option>
+                <option value="Central America">Central America</option>
+                <option value="South America">South America</option>
+                <option value="Europe">Europe</option>
+              </Form.Select>
+              <br />
+              <Form.Select aria-label="Default select example"
+                onChange={(e) => setPostSubCategory(e.target.value)}
+                value={ postSubCategory }
+              >
+                <option>Select A SubCategory:</option>
+                <option value="Cities">Cities</option>
+                <option value="Lodging">Lodging</option>
+                <option value="Language">Language</option>
+                <option value="Food">Food</option>
+                <option value="Transportation">Transportation</option>
+              </Form.Select>
+              <br />
+              <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                <Form.Label>Write Your Post:</Form.Label>
+                <Form.Control as="textarea" rows={4} 
+                  onChange={(e) => setPostBody(e.target.value)}
+                  value={ postBody }
+                />
+              </Form.Group>
+              {/* <Form.Group controlId="formFile" className="mb-3">
+                <Form.Label>Attach Image?</Form.Label>
+                <Form.Control 
+                  type="file"
+                  accept='image/*'
+                  onChange={(e) => setImage(e.target.files[0])}
+                  value={ image }
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                <Form.Label>Image Caption:</Form.Label>
+                <Form.Control as="textarea" rows={1} 
+                  onChange={(e) => setImageCaption(e.target.value)}
+                  value={ imageCaption }
+                />
+              </Form.Group> */}
+            </Form>
+            <div>
+              <input 
+                type="file"
+                accept='image/*'
+                onChange={(e) => setImage(e.target.files[0])}
+              />
             </div>
-          </Col>
-        </Row>
-      </Container>
-    </ThemeProvider>
+            <div>
+              <div>Image Caption</div>
+              <input
+                onChange={e => setImageCaption(e.target.value)}
+                value={ imageCaption }
+              />
+            </div>
+            <button onClick={() => submit()}>Submit Post!</button>
+          </div>
+
   )
 }
 
 
 function UserProfile() {
+  const [display, setDisplay] = useState('')
 
     return (
-      <>
-       <Body />
-      </>
+        <ThemeProvider
+          breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs']}
+          minBreakpoint="xs"
+          >
+          <Container>
+            <Row className="justify-content-center m-3">
+              <Col xs={12} md={7} className="d-flex flex-column justify-content-between text-center MainBody">
+                <div className="overflow-scroll" style={{height: "75vh"}}>
+                  <h1>User Portal:</h1>
+                  <span>
+                    <button
+                    title="New Post Display:" onClick={(() => setDisplay('New Post Display:'))}
+                    > Create New Post: </button>
+                    <button
+                    title="User Posts:" onClick={(() => setDisplay('User Posts:'))}
+                    > See Your Posts: </button>
+                  </span>
+                  <div>
+                    {display === "New Post Display:" && <NewPostDisplay/>}
+                    {display === "User Posts:" && <UserPostDisplay />}
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+      </ThemeProvider>
     )
   }
   
