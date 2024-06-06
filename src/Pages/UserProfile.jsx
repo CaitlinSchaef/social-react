@@ -8,23 +8,49 @@ import { createPost, getPosts } from "../api"
 import Form from 'react-bootstrap/Form';
 import { AuthContext } from "../authContext"
 import { useContext, useEffect } from 'react'
+import Card from 'react-bootstrap/Card';
+
+const PostDisplay = ({ post }) => {
+  return (
+    <Col md={6}>
+      <Card className="cardBody">
+        <Card.Body>
+          <Card.Title className="cardTitle">{post.post_author}</Card.Title>
+          <Card.Text>{post.postBody}</Card.Text>
+        </Card.Body>
+      </Card>
+    </Col>
+  )
+}
+
+// you need to convert this object to array or you cannot map
+const SpecificDisplay = ({ posts }) => {
+  return (
+    <div>
+      <Row className="justify-content-around g-4">
+        {posts.map(post => <PostDisplay key={post.id} post={post} />)}
+      </Row>
+    </div>
+  )
+}
 
 const UserPostDisplay = () => {
   const { auth } = useContext(AuthContext)
-  const [posts, setPosts] = useState('')
+  const [posts, setPosts] = useState([])
 
   //come back and filter by user then set posts with that data 
   useEffect(() => {
     getPosts({ auth }).then(response => {
       console.log('RESPONSE: ', response)
-      setPosts(response.data)
+      postList = response.data
+      setPosts(postList.data)
     })
   }, [])
 
 
   return (
     <div>
-      <h3>This is all of your posts okay</h3>
+      <SpecificDisplay />
     </div>
   )
 }
