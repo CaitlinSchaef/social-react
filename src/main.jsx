@@ -20,6 +20,7 @@ import ErrorPage from './Pages/ErrorPage.jsx';
 import UserProfile from './Pages/UserProfile.jsx';
 import MyNavBar from './NavBar.jsx';
 import CreateUser from './Pages/CreateUser.jsx';
+import Forum from './Pages/Forum.jsx';
 // import { initialState, taskReducer } from './Pages/ToDoFunction.jsx';
 
 // Importing Context
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: '/userprofile',
         element: <Protected component={<UserProfile />} />
+      },
+      {
+        path: '/forum',
+        element: <Protected component={<Forum />} />
       },
     ]
   }

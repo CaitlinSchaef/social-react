@@ -11,12 +11,18 @@ import { useContext, useEffect } from 'react'
 import Card from 'react-bootstrap/Card';
 
 const PostDisplay = ({ post }) => {
+  // because i had been working out my code all day, a few old posts had unknown users and so i needed to set
+  // a guard variable to set it as 'Unknown Author', I will need to do the same sort of thing with the categories
+  const username = post.post_author && post.post_author.user ? post.post_author.user.username : 'Unknown Author'
+
   return (
     <Col md={6}>
       <Card className="cardBody">
         <Card.Body>
-          <Card.Title className="cardTitle">{post.post_author}</Card.Title>
-          <Card.Text>{post.postBody}</Card.Text>
+          <Card.Title className="cardTitle">
+            {username}
+            </Card.Title>
+          <Card.Text>{post.post_body}</Card.Text>
         </Card.Body>
       </Card>
     </Col>
@@ -28,7 +34,7 @@ const SpecificDisplay = ({ posts }) => {
   return (
     <div>
       <Row className="justify-content-around g-4">
-        {posts.map(post => <PostDisplay key={post.id} post={post} />)}
+        {posts?.map((post) => <PostDisplay key={post.id} post={post} />)}
       </Row>
     </div>
   )
@@ -42,15 +48,16 @@ const UserPostDisplay = () => {
   useEffect(() => {
     getPosts({ auth }).then(response => {
       console.log('RESPONSE: ', response)
-      postList = response.data
-      setPosts(postList.data)
+      setPosts(response.data)
+      console.log('POSTS: ', posts)
     })
   }, [])
 
 
   return (
     <div>
-      <SpecificDisplay />
+      <br />
+      <SpecificDisplay posts={posts}/>
     </div>
   )
 }
@@ -163,6 +170,7 @@ function UserProfile() {
                   <h1>User Portal:</h1>
                   <span>
                     <button
+                    className="me-2"
                     title="New Post Display:" onClick={(() => setDisplay('New Post Display:'))}
                     > Create New Post: </button>
                     <button

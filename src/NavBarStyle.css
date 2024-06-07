@@ -1,6 +1,6 @@
 .navbar {
-    background-color: #DDA49D; 
-    color: #f6f4e6;
+    background-color: #03a6a655; 
+    color: #F37A65;
     text-decoration: none;
     font-family: poppins, sans-serif;
     font-style: normal;
@@ -8,18 +8,22 @@
     font-size: large;
 }
 .navbar-brand {
-    color: #03A6A6;
+    color: #F2C3A7;
     margin-left: 1px;
     
   }
   
   .nav-link {
-    color: #03A6A6 !important;
+    color: #F2C3A7 !important;
     padding: 1px;
   }
 
+  .navbutton {
+    background-color: #F2C3A7;
+    color: #038b8b;
+  }
 /* 
-Colors from book palette:
+
 #DDA49D - taupey pink
 #93C4C9 - light light blue
 #F37A65 - coral ish

@@ -5,7 +5,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import NavbarCollapse from 'react-bootstrap/NavbarCollapse'
 import { useState, useContext } from 'react'
-
+import Logo from './assets/Logo.png'
+import CLogo from './assets/CLogo.svg'
 import { AuthContext } from './authContext'
 
 
@@ -27,22 +28,31 @@ function MyNavBar() {
       <>
     <Navbar className="">
       <Container>
-        <Navbar.Collapse className="">
         <Navbar.Brand>
           <Link className="nav-link" to='/'>
-            CarryOn
+          <div className="rounded-circle">
+          <img
+              alt=""
+              src={Logo}
+              width="60"
+              height="60"
+              className="d-inline-block m-auto"
+            />
+            </div>
           </Link>
         </Navbar.Brand>
 
         <Navbar.Text className="nav-link me-2">
-        <Link className="nav-link" to='/userprofile'>Profile</Link> 
+        <Link className="nav-link" to='/userprofile'>PROFILE</Link> 
         </Navbar.Text>
 
-        <Navbar.Text className="nav-out me-2 justify-content-end">
-          <button onClick={() => logOut()}>Log Out</button>
+        <Navbar.Text className="nav-link me-2">
+        <Link className="nav-link" to='/forum'>FORUM</Link> 
         </Navbar.Text>
 
-      </Navbar.Collapse>
+        <Navbar.Text className="nav-out me-2">
+          <button className="navbutton" onClick={() => logOut()}>Log Out</button>
+        </Navbar.Text>
       </Container>
     </Navbar>
   </>

@@ -27,7 +27,7 @@ body {
  }
 
  .MainBody {
-  background-color: #F2C3A7;
+  background-color: #f2c2a7;
   border-radius: 2%;
   color: white;
   /* border-style: solid;
@@ -39,8 +39,8 @@ body {
  }
 
  button {
-  background-color: #023859;
-  color: #F2A477;
+  background-color: #037682;
+  color: #f2c2a7;
   border-radius: 4%;
  }
 
