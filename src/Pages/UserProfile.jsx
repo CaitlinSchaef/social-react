@@ -71,9 +71,8 @@ const UserPostDisplay = () => {
         try {
           // Log response data before filtering
           console.log('Response data before filtering: ', response.data);
-
           
-          // Filter posts where post_author matches the stored username
+          //checking to filter
           // Filter posts where post_author is not null
           const userPosts = response.data.filter(post => post.post_author !== null);
 
@@ -81,6 +80,21 @@ const UserPostDisplay = () => {
           const userPostsByUsername = userPosts.filter(post => post.post_author.username === storedUsername);
 
 
+        //   const userPosts = response.data.filter(post => {
+        //     // Log the structure of the post_author object
+        //     console.log('Post author structure:', post.post_author);
+        
+        //     // Check if post_author exists
+        //     if (post.post_author !== null) {
+        //         // Filter condition
+        //         return post.post_author.username === storedUsername;
+        //     }
+        
+        //     return false; // If post_author is null, return false
+        // });
+        
+          
+          console.log('USER POSTS BY USER: ', userPosts);
           console.log('USER POSTS BEFORE SETTING: ', userPosts);
 
           // Set the posts state
@@ -94,7 +108,6 @@ const UserPostDisplay = () => {
       });
     }
   }, [auth]);
-
 
 
 
