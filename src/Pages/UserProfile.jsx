@@ -13,17 +13,30 @@ import Card from 'react-bootstrap/Card';
 const PostDisplay = ({ post }) => {
   // because i had been working out my code all day, a few old posts had unknown users and so i needed to set
   // a guard variable to set it as 'Unknown Author', I will need to do the same sort of thing with the categories
+  // I'm also going to handle images this way
   const username = post.post_author && post.post_author.user ? post.post_author.user.username : 'Unknown Author'
+  const category = post.post_category ? post.post_category.category : 'Unknown Category'
+  const subCategory = post.post_sub_category ? post.post_sub_category.post_sub_category : 'Unknown SubCategory'
+  const image = post.image ? <img src={post.image} alt="Post Image" /> : null;
+  const imageCaption = post.image_caption ? post.image_caption : ''
+
 
   return (
-    <Col md={6}>
-      <Card className="cardBody">
+    <Col md={6} className="justify-content-center">
+      <Card border="dark" style={{ width: '18rem' }} className="cardBody">
+      <Card.Header>Category: {category} <br /> {subCategory}</Card.Header>
         <Card.Body>
-          <Card.Title className="cardTitle">
-            {username}
-            </Card.Title>
+          {/* <Card.Title className="cardTitle">
+            
+            </Card.Title> */}
           <Card.Text>{post.post_body}</Card.Text>
+          {image}
+          <br />
+          {imageCaption}
         </Card.Body>
+        <Card.Footer>
+          <small className="text-muted">Posted By: {username}</small>
+        </Card.Footer>
       </Card>
     </Col>
   )
@@ -33,7 +46,7 @@ const PostDisplay = ({ post }) => {
 const SpecificDisplay = ({ posts }) => {
   return (
     <div>
-      <Row className="justify-content-around g-4">
+      <Row className="justify-content-center g-4">
         {posts?.map((post) => <PostDisplay key={post.id} post={post} />)}
       </Row>
     </div>
@@ -44,14 +57,57 @@ const UserPostDisplay = () => {
   const { auth } = useContext(AuthContext)
   const [posts, setPosts] = useState([])
 
-  //come back and filter by user then set posts with that data 
+  
   useEffect(() => {
-    getPosts({ auth }).then(response => {
-      console.log('RESPONSE: ', response)
-      setPosts(response.data)
-      console.log('POSTS: ', posts)
-    })
-  }, [])
+    // Check if auth and storedUsername are not null or undefined
+    // Retrieve username from local storage
+    const storedUsername = localStorage.getItem('user');
+    console.log('STORED USER: ', storedUsername);
+    
+    // Check if auth and storedUsername are not null or undefined
+    if (auth && storedUsername) {
+      getPosts({ auth }).then(response => {
+        console.log('RESPONSE: ', response);
+        try {
+          // Log response data before filtering
+          console.log('Response data before filtering: ', response.data);
+
+          
+          // Filter posts where post_author matches the stored username
+          // Filter posts where post_author is not null
+          const userPosts = response.data.filter(post => post.post_author !== null);
+
+          // Filter the remaining posts based on the author's username
+          const userPostsByUsername = userPosts.filter(post => post.post_author.username === storedUsername);
+
+
+          console.log('USER POSTS BEFORE SETTING: ', userPosts);
+
+          // Set the posts state
+          setPosts(userPosts);
+          console.log('USER POSTS AFTER SETTING: ', userPosts);
+        } catch (error) {
+          console.error('Error filtering posts:', error);
+        }
+      }).catch(error => {
+        console.error('Error fetching posts:', error);
+      });
+    }
+  }, [auth]);
+
+
+
+
+  // useEffect(() => {
+  //   // get posts and filter them based on the logged-in user's ID
+  //   getPosts({ auth }).then(response => {
+  //     console.log('RESPONSE: ', response);
+  //     // Filter posts based on the user's ID
+  //     const userPosts = response.data.filter(post => post.post_author.id === auth.user.id);
+  //     setPosts(userPosts);
+  //     console.log('USER POSTS: ', userPosts);
+  //   });
+  // }, [auth])
 
 
   return (
