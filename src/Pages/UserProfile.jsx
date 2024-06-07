@@ -17,13 +17,15 @@ const PostDisplay = ({ post }) => {
   const username = post.post_author && post.post_author.user ? post.post_author.user.username : 'Unknown Author'
   const category = post.post_category ? post.post_category.category : 'Unknown Category'
   const subCategory = post.post_sub_category ? post.post_sub_category.post_sub_category : 'Unknown SubCategory'
-  const image = post.image ? <img src={post.image} alt="Post Image" /> : null;
+  const image = post.image ? <img src={`http://127.0.0.1:8000${post.image}`} width="150"
+  height="150" alt="Post Image" /> : null;
   const imageCaption = post.image_caption ? post.image_caption : ''
 
 
   return (
+    <div>
     <Col md={6} className="justify-content-center">
-      <Card border="dark" style={{ width: '18rem' }} className="cardBody">
+      <Card border="dark" style={{ width: '18rem' }} className="cardBody justify-content-center">
       <Card.Header>Category: {category} <br /> {subCategory}</Card.Header>
         <Card.Body>
           {/* <Card.Title className="cardTitle">
@@ -40,6 +42,7 @@ const PostDisplay = ({ post }) => {
         </Card.Footer>
       </Card>
     </Col>
+    </div>
   )
 }
 
@@ -47,7 +50,7 @@ const PostDisplay = ({ post }) => {
 const SpecificDisplay = ({ posts }) => {
   return (
     <div>
-      <Row className="justify-content-center g-4">
+      <Row className=" g-4">
         {posts?.map((post) => <PostDisplay key={post.id} post={post} />)}
       </Row>
     </div>
@@ -62,44 +65,38 @@ const UserPostDisplay = () => {
   useEffect(() => {
     // Retrieve username from local storage
     const storedUsername = localStorage.getItem('user')
-    console.log('STORED USER: ', storedUsername)
     
     // Check if auth and storedUsername are not null or undefined
     if (auth && storedUsername) {
       getPosts({ auth }).then(response => {
-        console.log('RESPONSE: ', response)
+        // console.log('RESPONSE: ', response)
         try {
           // Log response data before filtering
-          console.log('Response data before filtering: ', response.data)
+          // console.log('Response data before filtering: ', response.data)
           
           //filter first the nulls out then by author
           // Filter posts where post_author is not null
           const userPosts = response.data.filter(post => post.post_author !== null)
-
-          // Filter the remaining posts based on the author's username
-          const userPostsByUsername = userPosts.filter(post => post.post_author.username === storedUsername)
-
-
-        //   const userPosts = response.data.filter(post => {
-        //     // Log the structure of the post_author object
-        //     console.log('Post author structure:', post.post_author)
-        
-        //     // Check if post_author exists
-        //     if (post.post_author !== null) {
-        //         // Filter condition
-        //         return post.post_author.username === storedUsername
-        //     }
-        
-        //     return false // If post_author is null, return false
-        // })
-        
+          // console.log('USER POSTS BY USER: ', userPosts)
           
-          console.log('USER POSTS BY USER: ', userPosts)
-          console.log('USER POSTS BEFORE SETTING: ', userPosts)
+          
+          // Filter the remaining posts based on the author's username
+          const userPostsByUsername = []
+          userPosts.forEach(post => {
+            console.log('storedUsername: ', typeof(storedUsername), storedUsername)
+            // you have to take off all of the quotes that the username is in 
+            let newNameMinusQuotes = storedUsername.replaceAll('"', '')
+            console.log('AUTHOR IN POST WE ARE TESTING: ', typeof(post.post_author.user.username), post.post_author.user.username)
+            if (post.post_author.user.username === newNameMinusQuotes) {
+              console.log('POST WE ARE RETURNING: ', post)
+              userPostsByUsername.push(post)
+            }
+          })
+        
+          console.log('USER POSTS FILTERED BY USER: ', userPostsByUsername)
 
           // Set the posts state
-          setPosts(userPosts)
-          console.log('USER POSTS AFTER SETTING: ', userPosts)
+          setPosts(userPostsByUsername)
         } catch (error) {
           console.error('Error filtering posts:', error)
         }

@@ -17,7 +17,8 @@ const PostDisplay = ({ post }) => {
   const username = post.post_author && post.post_author.user ? post.post_author.user.username : 'Unknown Author'
   const category = post.post_category ? post.post_category.category : 'Unknown Category'
   const subCategory = post.post_sub_category ? post.post_sub_category.post_sub_category : 'Unknown SubCategory'
-  const image = post.image ? <img src={post.image} alt="Post Image" /> : null;
+  const image = post.image ? <img src={`http://127.0.0.1:8000${post.image}`} width="150"
+  height="150" alt="Post Image" /> : null;
   const imageCaption = post.image_caption ? post.image_caption : ''
 
 
@@ -46,8 +47,10 @@ const PostDisplay = ({ post }) => {
 const SpecificDisplay = ({ posts }) => {
   return (
     <div>
-      <Row className="justify-content-center g-4">
+      <Row className="g-4">
+        <Col className="justify-content-center">
         {posts?.map((post) => <PostDisplay key={post.id} post={post} />)}
+        </Col>
       </Row>
     </div>
   )
@@ -74,6 +77,7 @@ const AllPostDisplay = () => {
     </div>
   )
 }
+
 
 
 function Forum() {
