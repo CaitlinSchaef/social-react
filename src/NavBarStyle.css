@@ -2,10 +2,9 @@
     background-color: #03a6a655; 
     color: #F37A65;
     text-decoration: none;
-    font-family: poppins, sans-serif;
+    font-family: "josefin-sans", sans-serif;
+    font-weight: 600;
     font-style: normal;
-    font-weight: 400;
-    font-size: large;
 }
 .navbar-brand {
     color: #F2C3A7;

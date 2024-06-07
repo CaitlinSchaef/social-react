@@ -23,8 +23,8 @@ const Body = () => {
     >
       <Container>
         <Row className="justify-content-center m-3">
-          <Col xs={11} md={5} className="d-flex flex-column justify-content-between text-center MainBody">
-            <div className="overflow-scroll" style={{height: "25vh"}}>
+          <Col xs={6} md={3} className="d-flex flex-column justify-content-between text-center MainBody">
+            <div className="overflow-scroll" style={{height: "50vh"}}>
               <h1>Login</h1>
               <div>
               <div>Username:</div>

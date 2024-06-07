@@ -93,7 +93,7 @@ function Forum() {
                     <button
                     className="me-2"
                     title="New Post Display:" onClick={(() => setDisplay('New Post Display:'))}
-                    > Create New Post: </button>
+                    > This will be continents </button>
                     <button
                     title="User Posts:" onClick={(() => setDisplay('User Posts:'))}
                     > See All Posts: </button>

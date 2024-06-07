@@ -36,6 +36,7 @@ const PostDisplay = ({ post }) => {
         </Card.Body>
         <Card.Footer>
           <small className="text-muted">Posted By: {username}</small>
+          <button>Delete Post:</button> <button>Edit Post:</button>
         </Card.Footer>
       </Card>
     </Col>
@@ -59,52 +60,51 @@ const UserPostDisplay = () => {
 
   
   useEffect(() => {
-    // Check if auth and storedUsername are not null or undefined
     // Retrieve username from local storage
-    const storedUsername = localStorage.getItem('user');
-    console.log('STORED USER: ', storedUsername);
+    const storedUsername = localStorage.getItem('user')
+    console.log('STORED USER: ', storedUsername)
     
     // Check if auth and storedUsername are not null or undefined
     if (auth && storedUsername) {
       getPosts({ auth }).then(response => {
-        console.log('RESPONSE: ', response);
+        console.log('RESPONSE: ', response)
         try {
           // Log response data before filtering
-          console.log('Response data before filtering: ', response.data);
+          console.log('Response data before filtering: ', response.data)
           
-          //checking to filter
+          //filter first the nulls out then by author
           // Filter posts where post_author is not null
-          const userPosts = response.data.filter(post => post.post_author !== null);
+          const userPosts = response.data.filter(post => post.post_author !== null)
 
           // Filter the remaining posts based on the author's username
-          const userPostsByUsername = userPosts.filter(post => post.post_author.username === storedUsername);
+          const userPostsByUsername = userPosts.filter(post => post.post_author.username === storedUsername)
 
 
         //   const userPosts = response.data.filter(post => {
         //     // Log the structure of the post_author object
-        //     console.log('Post author structure:', post.post_author);
+        //     console.log('Post author structure:', post.post_author)
         
         //     // Check if post_author exists
         //     if (post.post_author !== null) {
         //         // Filter condition
-        //         return post.post_author.username === storedUsername;
+        //         return post.post_author.username === storedUsername
         //     }
         
-        //     return false; // If post_author is null, return false
-        // });
+        //     return false // If post_author is null, return false
+        // })
         
           
-          console.log('USER POSTS BY USER: ', userPosts);
-          console.log('USER POSTS BEFORE SETTING: ', userPosts);
+          console.log('USER POSTS BY USER: ', userPosts)
+          console.log('USER POSTS BEFORE SETTING: ', userPosts)
 
           // Set the posts state
-          setPosts(userPosts);
-          console.log('USER POSTS AFTER SETTING: ', userPosts);
+          setPosts(userPosts)
+          console.log('USER POSTS AFTER SETTING: ', userPosts)
         } catch (error) {
-          console.error('Error filtering posts:', error);
+          console.error('Error filtering posts:', error)
         }
       }).catch(error => {
-        console.error('Error fetching posts:', error);
+        console.error('Error fetching posts:', error)
       });
     }
   }, [auth]);
